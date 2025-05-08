@@ -25,7 +25,7 @@ pipeline{
                     sh 'docker rm -f $CONTAINER_NAME || true'
                 }
                 script{
-                    sh 'docker run -itd --name $CONTAINER_NAME -p 5000:5000 $IMAGE_NAME'
+                    sh 'docker run -itd --name $CONTAINER_NAME -p 5050:5000 $IMAGE_NAME'
                 }
             }
         }
