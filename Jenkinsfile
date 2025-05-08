@@ -3,7 +3,7 @@ pipeline{
 
     environment{
         IMAGE_NAME = 'flask_app2'
-        CONTAInER_NAME = 'flask_app_container_jenkins'
+        CONTAINER_NAME = 'flask_app_container_jenkins'
     }
 
     stages{
@@ -25,7 +25,7 @@ pipeline{
                     sh 'docker rm -f $CONTAINER_NAME || true'
                 }
                 script{
-                    sh 'docker run -itd --name $CONTAInER_NAME -p 5000:5000 $IMAGE_NAME'
+                    sh 'docker run -itd --name $CONTAINER_NAME -p 5000:5000 $IMAGE_NAME'
                 }
             }
         }
