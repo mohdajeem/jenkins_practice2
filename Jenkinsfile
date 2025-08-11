@@ -1,42 +1,41 @@
 pipeline{
     agent any
-
     environment{
-        IMAGE_NAME = 'flask_app2'
-        CONTAINER_NAME = 'flask_app_container_jenkins'
+        IMAGE_NAME = "my_image"
+        CONTAINER_NAME = "my_container"
     }
-
+    
     stages{
-        stage('clone'){
+        stage('Clone'){
             steps{
-                git branch: 'main', url:'https://github.com/mohdajeem/jenkins_practice2.git'
+                git branch: 'main', url: ''
             }
         }
-        stage('Build'){
+
+        stage("Build"){
             steps{
                 script{
                     sh 'docker build -t $IMAGE_NAME .'
                 }
             }
         }
+        
         stage('Run'){
             steps{
                 script{
-                    sh 'docker rm -f $CONTAINER_NAME || true'
-                }
-                script{
-                    sh 'docker run -itd --name $CONTAINER_NAME -p 5050:5000 $IMAGE_NAME'
+                    sh 'docker rm -r $CONTAINER_NAME'
+                    sh 'docker run -d -p 8080:80 --name $CONTAINER_NAME $IMAGE_NAME'
                 }
             }
         }
     }
+
     post{
         success {
-            echo "success fully done"
+            echo "Success"
         }
         failure{
-            echo "failed...  "
+            echo "Fail"
         }
     }
 }
-
